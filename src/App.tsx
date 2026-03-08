@@ -26,7 +26,7 @@ function App() {
         </p>
       </div>
       <p className="read-the-docs">
-        Test Auto Deployment 2!
+        Test Auto Deployment 3!
       </p>
     </>
   )
