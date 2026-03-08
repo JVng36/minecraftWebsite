@@ -1,4 +1,4 @@
-name: Deploy Website
+name: Build and Deploy Website
 
 on:
   push:
@@ -10,8 +10,19 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
+      - name: Checkout repo
         uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build React app
+        run: npm run build
 
       - name: Setup SSH
         run: |
@@ -20,37 +31,15 @@ jobs:
           chmod 600 ~/.ssh/deploy_key
           ssh-keyscan -H ${{ secrets.EC2_HOST }} >> ~/.ssh/known_hosts
 
-      - name: Deploy to EC2
+      - name: Upload build to EC2
+        run: |
+          scp -i ~/.ssh/deploy_key -r dist/* \
+          ${{ secrets.EC2_USER }}@${{ secrets.EC2_HOST }}:/tmp/site-build
+
+      - name: Deploy on server
         run: |
           ssh -i ~/.ssh/deploy_key ${{ secrets.EC2_USER }}@${{ secrets.EC2_HOST }} << 'EOF'
-
-            set -e
-
-            echo "Loading Node (NVM if installed)"
-            export NVM_DIR="$HOME/.nvm"
-            if [ -s "$NVM_DIR/nvm.sh" ]; then
-              source "$NVM_DIR/nvm.sh"
-            fi
-
-            echo "Going to project directory"
-            cd ~/website
-
-            echo "Pulling latest code"
-            git pull origin main
-
-            echo "Installing dependencies"
-            npm install
-
-            echo "Building React app"
-            npm run build
-
-            echo "Deploying build to nginx"
             sudo rm -rf /var/www/html/*
-            sudo cp -r dist/* /var/www/html/
-
-            echo "Reloading nginx"
+            sudo cp -r /tmp/site-build/* /var/www/html/
             sudo systemctl reload nginx
-
-            echo "Deployment complete"
-
           EOF
