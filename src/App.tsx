@@ -1,124 +1,106 @@
 import './App.css'
 
-const highlights = [
-  {
-    title: 'Survival With Progression',
-    text: 'Build a long-term base, unlock server events, and keep your world moving forward with friends.',
-  },
-  {
-    title: 'Community-First',
-    text: 'Join a server shaped around regular players, shared projects, and a clean, fair ruleset.',
-  },
-  {
-    title: 'Always Something To Do',
-    text: 'Seasonal builds, PvE challenges, marketplace trading, and community competitions keep the map active.',
-  },
+const aboutItems = [
+  'Small-community survival server focused on long-term builds and steady progression.',
+  'Player-driven economy, collaborative projects, and regular events to keep the world active.',
+  'Simple ruleset built around fair play, respect, and a stable experience for returning players.',
 ]
 
-const steps = [
-  'Launch Minecraft Java Edition.',
-  'Open Multiplayer and add the server.',
-  'Paste your server IP and jump in.',
+const joinSteps = [
+  'Open Minecraft Java Edition and head to Multiplayer.',
+  'Add a server entry using your server address.',
+  'Join the world, read the rules, and start building.',
+]
+
+const technicalDetails = [
+  ['Server Address', 'play.yourserver.net'],
+  ['Version', '1.21.x'],
+  ['Mode', 'Survival SMP'],
+  ['Location', 'North America'],
 ]
 
 function App() {
   return (
-    <main className="page-shell">
-      <section className="hero">
-        <div className="hero-copy">
-          <p className="eyebrow">Minecraft Server</p>
-          <h1>Build after dark.</h1>
-          <p className="hero-text">
-            A dark-mode home page for your Minecraft community with a bold landing
-            section, server info, and clear calls to join the world.
+    <div className="site">
+      <header className="site-header">
+        <nav className="top-nav" aria-label="Primary">
+          <a href="#welcome">Welcome</a>
+          <a href="#about">About</a>
+          <a href="#join-server">Join Server</a>
+          <a href="#technical">Technical</a>
+        </nav>
+      </header>
+
+      <main className="doc-shell">
+        <section className="doc-section hero-section" id="welcome">
+          <p className="section-kicker">Welcome</p>
+          <h1>Your Minecraft server, presented like a proper home page.</h1>
+          <p className="lead">
+            This layout keeps the content centered and readable, more like a blog
+            or documentation page than a full-width landing page. It is built for
+            text, updates, and server details without stretching everything to the
+            edges of the screen.
           </p>
-          <div className="hero-actions">
-            <a className="button primary" href="#join">
-              Join The Server
-            </a>
-            <a className="button secondary" href="#about">
-              Explore Features
-            </a>
-          </div>
-          <dl className="hero-stats">
-            <div>
-              <dt>Version</dt>
-              <dd>1.21.x</dd>
-            </div>
-            <div>
-              <dt>Mode</dt>
-              <dd>Survival SMP</dd>
-            </div>
-            <div>
-              <dt>Region</dt>
-              <dd>North America</dd>
-            </div>
-          </dl>
-        </div>
-
-        <aside className="server-panel" id="join">
-          <div className="server-panel__header">
-            <span className="status-dot" aria-hidden="true" />
-            <p>Server online</p>
-          </div>
-          <h2>play.yourserver.net</h2>
-          <p className="server-panel__text">
-            Replace this with your real IP, Discord invite, whitelist notes, or
-            donation link.
+          <p>
+            Use this section for your server introduction, community tone, and a
+            quick explanation of what makes your world worth joining.
           </p>
-          <div className="server-meta">
-            <div>
-              <span>Players</span>
-              <strong>24 / 80</strong>
-            </div>
-            <div>
-              <span>Uptime</span>
-              <strong>99.9%</strong>
-            </div>
+        </section>
+
+        <section className="doc-section" id="about">
+          <p className="section-kicker">About</p>
+          <h2>What players should know before they join.</h2>
+          <p>
+            The site now follows a narrower reading column so longer paragraphs,
+            announcements, and guides feel intentional instead of stretched. This
+            works better for server lore, rules, FAQs, and changelogs.
+          </p>
+          <div className="note-list">
+            {aboutItems.map((item) => (
+              <article className="note-card" key={item}>
+                <p>{item}</p>
+              </article>
+            ))}
           </div>
-          <a className="button primary full-width" href="https://discord.com" target="_blank" rel="noreferrer">
-            Join Discord
-          </a>
-        </aside>
-      </section>
+        </section>
 
-      <section className="content-grid" id="about">
-        <div className="section-heading">
-          <p className="eyebrow">Why Players Stay</p>
-          <h2>A server page with structure, not filler.</h2>
-        </div>
-        <div className="card-grid">
-          {highlights.map((item) => (
-            <article className="feature-card" key={item.title}>
-              <h3>{item.title}</h3>
-              <p>{item.text}</p>
-            </article>
-          ))}
-        </div>
-      </section>
-
-      <section className="details-grid">
-        <article className="info-card">
-          <p className="eyebrow">How To Play</p>
-          <h2>Get in fast.</h2>
-          <ol>
-            {steps.map((step) => (
+        <section className="doc-section" id="join-server">
+          <p className="section-kicker">Join Server</p>
+          <h2>Simple instructions for getting into the world.</h2>
+          <p>
+            Keep the join flow obvious. This section should answer the common
+            questions immediately: what edition to use, what IP to enter, and
+            whether players should join Discord first.
+          </p>
+          <ol className="steps">
+            {joinSteps.map((step) => (
               <li key={step}>{step}</li>
             ))}
           </ol>
-        </article>
+          <div className="callout">
+            <strong>Server IP:</strong> play.yourserver.net
+          </div>
+        </section>
 
-        <article className="info-card accent-card">
-          <p className="eyebrow">What To Customize</p>
-          <h2>Easy placeholders to swap.</h2>
-          <ul>
-            <li>Server name and tagline</li>
-            <li>Real IP and supported versions</li>
-            <li>Rules, events, mods, or store links</li>
-          </ul>
-        </article>
-      </section>
-    </main>
+        <section className="doc-section" id="technical">
+          <p className="section-kicker">Technical</p>
+          <h2>Connection details and server information.</h2>
+          <p>
+            This area is suited for versions, supported mods, hardware notes,
+            backups, uptime, or any technical expectations players should be aware
+            of before they log in.
+          </p>
+          <dl className="tech-grid">
+            {technicalDetails.map(([label, value]) => (
+              <div className="tech-item" key={label}>
+                <dt>{label}</dt>
+                <dd>{value}</dd>
+              </div>
+            ))}
+          </dl>
+        </section>
+      </main>
+    </div>
   )
 }
 

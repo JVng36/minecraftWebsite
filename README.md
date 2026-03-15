@@ -1,3 +1,47 @@
+
+## Development — Build & Run Locally
+
+- **Prerequisites:** Node.js (recommended >= 18) and a package manager (`npm`, `yarn`, or `pnpm`).
+- **Install dependencies:**
+
+```bash
+npm install
+# or `yarn` or `pnpm install`
+```
+
+- **Start dev server (local development with HMR):**
+
+```bash
+npm run dev
+```
+
+Vite serves the app (by default) at http://localhost:5173 — open that in your browser.
+
+- **Build for production:**
+
+```bash
+npm run build
+```
+
+This runs the TypeScript project build (`tsc -b`) and then `vite build` to produce optimized output in `dist/`.
+
+- **Preview the production build locally:**
+
+```bash
+npm run preview
+```
+
+- **Lint the project:**
+
+```bash
+npm run lint
+```
+
+Tips:
+- If the default dev port is in use, run `npm run dev -- --port <port>` to change it.
+- Use `yarn` or `pnpm` in place of `npm` if you prefer those package managers.
+```
+
 # React + TypeScript + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
@@ -70,4 +114,3 @@ export default defineConfig([
     },
   },
 ])
-```
